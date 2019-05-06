@@ -79,9 +79,6 @@ public class Lista {
         int wartosc = tail.getValue();
         tail = tail.getNext();
         tail.setPrev(null);
-        if (tail == null) {
-            head = null;
-        }
         return wartosc;
     }
 
