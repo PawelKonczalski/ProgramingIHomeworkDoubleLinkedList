@@ -11,41 +11,27 @@ public class Lista {
 
     public void addHead(int wartosc) {
         Element newElement = new Element(wartosc);
-        head = tail;
-        newElement.setNext(null);
 
-        if (tail == null) {
-            newElement.setPrev(null);
-            tail = newElement;
-            return;
+        if(head == null){
+            head = tail = newElement;
         }
-
-        while (head.getNext() != null) {
-            head = head.getNext();
+        else {
+            head.setNext(newElement);
+            newElement.setPrev(head);
+            head = newElement;
         }
-
-        head.setNext(newElement);
-        newElement.setPrev(head);
-        head = newElement;
-
     }
 
     public void addTail(int wartosc) {
         Element newElement = new Element(wartosc);
-        newElement.setNext(tail);
-        newElement.setPrev(null);
 
-        if (tail != null) {
+        if (tail == null) {
+            tail = head =  newElement;
+        } else {
+            newElement.setNext(tail);
             tail.setPrev(newElement);
+            tail = newElement;
         }
-
-        if (head == null) {
-            newElement.setNext(null);
-            head = newElement;
-        }
-
-        tail = newElement;
-
     }
 
     public int peekHead() {
@@ -64,6 +50,7 @@ public class Lista {
 
     public int pollHead() {
         if (head.getPrev() == null) {
+            head = tail = null;
             throw new ListaPustaException("Lista jest pusty!");
         }
         int wartosc = head.getValue();
@@ -74,6 +61,7 @@ public class Lista {
 
     public int pollTail() {
         if (tail.getNext() == null) {
+            head = tail = null;
             throw new ListaPustaException("Lista jest pusty!");
         }
         int wartosc = tail.getValue();
